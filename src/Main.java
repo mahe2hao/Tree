@@ -1,7 +1,40 @@
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
+
         TreeNode root = buildTree();
-        traverseTree(root);
+//        preTraverseTree(root);
+//        System.out.println();
+//        innerTraverseTree(root);
+//        System.out.println();
+//        postTraverseTree(root);
+        System.out.println();
+//        breadthFirstTraverse(root);
+//        breadthFirstTraverseByLevel(root);
+
+        Set<Integer> set = new HashSet<>();
+        set.add(10);
+        set.add(5);
+        set.add(6);
+        set.add(7);
+
+        for (int num : set){
+            System.out.print(num + " ");
+        }
+        System.out.println();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("Jeff", "UofT");
+        map.put("Laura", "Berkeley");
+        map.put("Mohan", "Shit");
+        map.put("Jerry", "Emily Carr");
+
+        for (String key : map.keySet()){
+            System.out.println(key + ":" + map.get(key));
+        }
+
+
     }
     public static TreeNode buildTree() {
         TreeNode node1 = new TreeNode(1);
@@ -27,19 +60,75 @@ public class Main {
         node4.right = node9;
 
         return node1;
+
+
+
     }
-    public static void traverseTree(TreeNode root) {
+    public static void breadthFirstTraverse(TreeNode root){
+        if (root == null){
+            return;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            TreeNode cur = queue.poll();
+            System.out.print(cur.val + " ");
+            if(cur.left != null){
+                queue.offer(cur.left);
+            }
+            if (cur.right != null){
+                queue.offer(cur.right);
+            }
+        }
+    }
+
+    public static void breadthFirstTraverseByLevel(TreeNode root){
+        if (root == null){
+            return;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            int n = queue.size();
+            for (int i = 0; i < n; i ++){
+                TreeNode cur = queue.poll();
+                System.out.print(cur.val + " ");
+                if(cur.left != null){
+                    queue.offer(cur.left);
+                }
+                if (cur.right != null){
+                    queue.offer(cur.right);
+                }
+            }
+            System.out.println();
+        }
+    }
+    public static void preTraverseTree(TreeNode root) {
+        if (root == null) return;
         System.out.print(root.val + " ");
-        traverseTree(root.left);
-        traverseTree(root.right);
+        preTraverseTree(root.left);
+        preTraverseTree(root.right);
+    }
+
+
+
+    public static void innerTraverseTree(TreeNode root){
+        if (root == null) return;
+        innerTraverseTree(root.left);
+        System.out.print(root.val +" ");
+        innerTraverseTree(root.right);
+    }
+
+    public static void postTraverseTree(TreeNode root){
+        if (root == null) return;
+        postTraverseTree(root.left);
+        postTraverseTree(root.right);
+        System.out.print(root.val + " ");
     }
 }
 class TreeNode {
-
-    public static void main(String[] args) {
-
-    }
-
     public int val;
 
     public TreeNode left;
